@@ -32,7 +32,6 @@ const stateDefault = {
         },
     ],
     selectedUser: null,
-    search: [],
 }
 
 export const baiTapForm = (state = stateDefault, { type, payload }) => {
@@ -60,18 +59,9 @@ export const baiTapForm = (state = stateDefault, { type, payload }) => {
 
         }
         case 'SEARCH_USER': {
-            let memory = Object.assign({}, state)
-            // const searchUser = memory.mangSinhVien.filter((item) => {
-            //     return Object.keys(item).some(key =>
-            //         (item[key].toLowerCase().includes(payload.toLowerCase()))
-            //     )
-            // }
-            // )
-            const searchUser = memory.mangSinhVien.filter(item => { return Object.keys(item).some(key => (item[key].toLowerCase().includes(payload.toLowerCase()))) })
-            // const searchUser = state.mangSinhVien.filter((item) => item.fullName === payload)
-
-
-            return { ...state, search: searchUser }
+            const searchUser = state.mangSinhVien.filter((item) => item.fullName === payload 
+            )
+            return { ...state, mangSinhVien: searchUser }
 
 
         }

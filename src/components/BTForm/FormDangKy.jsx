@@ -10,6 +10,7 @@ class FormDangKy extends Component {
       email: '',
     },
     errors: {},
+    input: '',
   }
 
   handleState = (event) => {
@@ -47,9 +48,23 @@ class FormDangKy extends Component {
         fullName: '',
         phoneNumber: '',
         email: '',
-      }
+      },
+      input: ''
     })
   }
+  handleInput = (event) => {
+    this.setState({
+      input: event.target.value,
+    })
+  }
+
+  handleSearch = (event) => {
+    this.props.dispatch({
+      type: 'SEARCH_USER',
+      payload: this.state.input
+    })
+  }
+
 
   handleBlur = (event) => {
     console.log(event)
@@ -81,13 +96,8 @@ class FormDangKy extends Component {
           break;
         default:
           mess = `${title} không đúng định dạng !`
-
       }
-
-
     }
-
-
     this.setState({
       errors: {
         ...this.state.errors,
@@ -96,19 +106,7 @@ class FormDangKy extends Component {
     })
   }
 
-  handleSearch = (event) => {
-    // console.log(event.target.value)
-    this.props.dispatch({
-      type: 'SEARCH_USER',
-      payload: this.state.values
-    })
-
-    this.setState({
-      search: event.target.value
-    })
-
-
-  }
+ 
   // chuyển props thành state nội bộ
   static getDerivedStateFromProps = (nextProps, currentState) => {
     // console.log(nextProps, currentState)
@@ -124,7 +122,7 @@ class FormDangKy extends Component {
     // console.log(this.state)
 
     // const {selectedUser} = this.props
-    const { userName, fullName, phoneNumber, email, search } = this.state.values
+    const { userName, fullName, phoneNumber, email } = this.state.values
     // console.log("selecteduser: ", selectedUser);
 
     return (
@@ -186,9 +184,8 @@ class FormDangKy extends Component {
           </div>
           <div>
             <input type='text' placeholder='Tìm kiếm sinh viên' name='search'
-              value={search} className='border-2 border-gray mr-10 rounded-sm p-3 w-60'
-              onChange={this.handleState}
-              onBlur={this.handleBlur}
+              value={this.state.input} className='border-2 border-gray mr-10 rounded-sm p-3 w-60'
+              onChange={this.handleInput}
 
             />
 
