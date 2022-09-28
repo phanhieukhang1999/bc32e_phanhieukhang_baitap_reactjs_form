@@ -69,7 +69,22 @@ class FormDangKy extends Component {
     }
 
     if (patternMismatch) {
-      mess = `${title} không đúng định dạng !`
+      switch (name) {
+        case 'userName':
+          mess = `${title} phải là số !`;
+          break;
+        case 'fullName':
+          mess = `${title} phải là ký tự !`;
+          break;
+        case 'phoneNumber':
+          mess = `${title} phải là 10 số !`;
+          break;
+        default:
+          mess = `${title} không đúng định dạng !`
+
+      }
+
+
     }
 
 
@@ -111,7 +126,7 @@ class FormDangKy extends Component {
     // const {selectedUser} = this.props
     const { userName, fullName, phoneNumber, email, search } = this.state.values
     // console.log("selecteduser: ", selectedUser);
-    
+
     return (
       <form
         // tắt pop-up khi handle
@@ -126,7 +141,7 @@ class FormDangKy extends Component {
         <div className='grid grid-cols-2 gap-6 mt-5'>
           <div>
             <p>Mã sinh viên</p>
-            <input required minLength={4} maxLength={15} title='Mã sinh viên' type="text" value={userName} name='userName' placeholder='Mã sinh viên' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
+            <input required pattern='^(0|[1-9][0-9]*)$'  minLength={4} maxLength={15} title='Mã sinh viên' type="text" value={userName} name='userName' placeholder='Mã sinh viên' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
 
               onChange={this.handleState}
               onBlur={this.handleBlur}
@@ -135,7 +150,7 @@ class FormDangKy extends Component {
           </div>
           <div>
             <p>Họ tên</p>
-            <input required title='Họ tên' type="text" value={fullName} name='fullName' placeholder='Họ tên' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
+            <input required pattern="^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+" title='Họ tên' type="text" value={fullName} name='fullName' placeholder='Họ tên' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
 
               onChange={this.handleState}
               onBlur={this.handleBlur}
@@ -146,7 +161,7 @@ class FormDangKy extends Component {
           </div>
           <div>
             <p>Số điện thoại</p>
-            <input required title='Số điện thoại' type="text" value={phoneNumber} name='phoneNumber' placeholder='Số điện thoại' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
+            <input required pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$" title='Số điện thoại' type="text" value={phoneNumber} name='phoneNumber' placeholder='Số điện thoại' className='border-2 border-gray rounded-sm p-3 w-full mt-2'
 
               onChange={this.handleState}
               onBlur={this.handleBlur}
